@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}HouseHold管理系统{% endblock %}</title>
+        {% load static from staticfiles %}
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+        <link rel="stylesheet" href="{% static "css/style.css" %}" />
+        <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+        <script src="{% static "js/admin.js" %}"></script>
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            <a href="#" class="logo">HouseHold管理系统</a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="app-name pull-right">{{ request.session.person_name }}</div>
+            </nav>
+        </header>
+        <div>
+            <aside class="left-side">
+                <section class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li><a href="{% url 'calc.views.spend_list' %}">开支管理</a></li>
+                        <li><a href="{% url 'calc.views.calc_list' %}">结算列表</a></li>
+                        <li><a href="{% url 'calc.views.bill_list' %}">账单查询</a></li>
+                        <li><a href="{% url 'calc.views.password_change' %}">修改密码</a></li>
+                        {% if request.user.is_superuser %}
+                        {% endif %}
+                        <li><a href="/accounts/logout">安全退出</a></li>
+                    </ul>
+                </section>
+            </aside>
+            <aside class="right-side">
+                {% block content %}{% endblock %}
+            </aside>
+        </div>
+    </body>
+</html>

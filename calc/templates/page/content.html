@@ -1,0 +1,29 @@
+
+<div class="row">
+    <div class="col-xs-6">
+        <div id="page-info">第{{ page.start_index }}到{{ page.end_index }}条 总计{{ page.paginator.count }}条</div>
+    </div>
+    <div class="col-xs-6">
+        <ul class="pagination pull-right">
+            {% if page.has_previous %}
+            <li><a href="?page={{ page.previous_page_number }}&page_size="><span>&laquo;</span></a></li>
+            {% else %}
+            <li class="disabled"><a href="?page={{ page.number }}&page_size="><span>&laquo;</span></a></li>
+            {% endif %}
+
+            {% for page_num in page.paginator.page_range %}
+                {% if page.number == page_num %}
+                    <li class="active"><a href="?page={{ page_num }}&page_size=">{{ page_num }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ page_num }}&page_size=">{{ page_num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page.has_next %}
+            <li><a href="?page={{ page.next_page_number }}&page_size="><span>&raquo;</span></a></li>
+            {% else %}
+            <li class="disabled"><a href="?page={{ page.number }}&page_size="><span>&raquo;</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
